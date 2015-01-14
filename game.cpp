@@ -25,12 +25,12 @@ vector<vector<char> > init_board(int h, int w){
 	}
 
 	// Set boundries
-	for (i = 1; i<rv.size()-1; i++){
+	for (i = 0; i<rv.size(); i++){
 		rv[i][0] = rv[i][rv[0].size()-2];
 		rv[i][rv[0].size()-1] = rv[i][1];
 	}
 
-	for (j = 1; j<rv[0].size()-1; j++){
+	for (j = 0; j<rv[0].size(); j++){
 		rv[0][j]=rv[rv.size()-2][j];
 		rv[rv.size()-1][j]=rv[1][j];
 	}
@@ -96,12 +96,12 @@ vector< vector< char > > tick(vector< vector< char > > board){
 	}
 	
 	// Set buffer
-	for (i = 1; i<board.size()-1; i++){
+	for (i = 0; i<board.size(); i++){
 		new_board[i][0] = board[i][board[0].size()-2];
 		new_board[i][board[0].size()-1] = board[i][1];
 	}
 
-	for (j = 1; j<board[0].size()-1; j++){
+	for (j = 0; j<board[0].size(); j++){
 		new_board[0][j]=board[board.size()-2][j];
 		new_board[board.size()-1][j]=board[1][j];
 	}
