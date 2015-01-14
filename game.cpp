@@ -16,7 +16,8 @@ vector<vector<char> > init_board(int h, int w){
 
 	percentage = 15;
 	
-	vector< vector<char> > rv(h, vector<char>(w, ' '));
+	vector< vector<char> > rv;
+  rv	=  vector< vector<char> >(h, vector<char>(w, ' '));
 	for(i = 1; i < rv.size()-1; i++){
 		for(j = 1; j < rv[i].size()-1; j++){
 			cell_is_alive = (rand()%100 < percentage);
@@ -107,10 +108,8 @@ void tick(vector< vector< char > > &board, vector< vector< char> > &new_board){
 
 int main(){
 	srand(time(NULL));
-	vector<vector<char> > game_board_0 = init_board(75, 75);
-	vector<vector<char> > game_board_1 = game_board_0;
-	vector<vector<char> > *current = &game_board_0 ;
-	vector<vector<char> > *next = &game_board_1 ;
+	vector<vector<char> > *current = new vector<vector<char > >(init_board(75, 75));
+	vector<vector<char> > *next = new vector<vector<char > >(*current); 
 	cout << current->size();
 	while(true){
 		system("clear");
