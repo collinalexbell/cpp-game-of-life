@@ -1,4 +1,5 @@
 Simple Game of life implementaion in C
 
-Things to do:
--Create Step function
+Only works on unix 
+
+change "clear" to "clr" if on windows
