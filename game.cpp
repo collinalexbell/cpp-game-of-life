@@ -6,8 +6,9 @@
 
 using namespace std;
 
+typedef vector<vector<char> > board_vector;
 
-vector<vector<char> > init_board(int h, int w){
+board_vector init_board(int h, int w){
 //Inits board with random seed based off percentage
 
   //Percentage of board filled with life
@@ -16,8 +17,8 @@ vector<vector<char> > init_board(int h, int w){
 
 	percentage = 15;
 	
-	vector< vector<char> > rv;
-  rv	=  vector< vector<char> >(h, vector<char>(w, ' '));
+	board_vector rv;
+  rv	=  board_vector(h, vector<char>(w, ' '));
 	for(i = 1; i < rv.size()-1; i++){
 		for(j = 1; j < rv[i].size()-1; j++){
 			cell_is_alive = (rand()%100 < percentage);
@@ -38,7 +39,7 @@ vector<vector<char> > init_board(int h, int w){
 	return rv;
 }
 
-void print_board(vector<vector<char> > board){
+void print_board(board_vector board){
 	int i, j;
 	for (i = 1; i < board[0].size()-1; i++){
 		for (j = 1; j < board.size()-1; j++){
@@ -48,7 +49,7 @@ void print_board(vector<vector<char> > board){
 	}
 }
 
-void tick(vector< vector< char > > &board, vector< vector< char> > &new_board){
+void tick(board_vector &board, board_vector &new_board){
 	int total_alive, i ,j;
 	cout << board.size();
 	
@@ -108,8 +109,8 @@ void tick(vector< vector< char > > &board, vector< vector< char> > &new_board){
 
 int main(){
 	srand(time(NULL));
-	vector<vector<char> > *current = new vector<vector<char > >(init_board(75, 75));
-	vector<vector<char> > *next = new vector<vector<char > >(*current); 
+	board_vector *current = new board_vector(init_board(75, 75));
+	board_vector *next = new board_vector(*current); 
 	cout << current->size();
 	while(true){
 		system("clear");
