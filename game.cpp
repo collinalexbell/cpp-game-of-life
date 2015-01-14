@@ -47,12 +47,10 @@ void print_board(vector<vector<char> > board){
 	}
 }
 
-vector< vector< char > > tick(vector< vector< char > > board){
+void tick(vector< vector< char > > &board, vector< vector< char> > &new_board){
 	int total_alive, i ,j;
+	cout << board.size();
 	
-	//Updates happen simultaneously, therefore we need a copy
-	vector< vector< char> > new_board = board;
-
 	//Iterate through center cells
 	for( i = 1; i < board.size()-1; i++ ){
 		for( j = 1; j < board[0].size()-1; j++ ){
@@ -105,16 +103,20 @@ vector< vector< char > > tick(vector< vector< char > > board){
 		new_board[0][j]=board[board.size()-2][j];
 		new_board[board.size()-1][j]=board[1][j];
 	}
-	return new_board;
 }
 
 int main(){
 	srand(time(NULL));
-	vector<vector<char> > game_board = init_board(75, 75);
+	vector<vector<char> > game_board_0 = init_board(75, 75);
+	vector<vector<char> > game_board_1 = game_board_0;
+	vector<vector<char> > *current = &game_board_0 ;
+	vector<vector<char> > *next = &game_board_1 ;
+	cout << current->size();
 	while(true){
 		system("clear");
-		print_board(game_board);
-		game_board = tick(game_board);
+		print_board(*current);
+		tick(*current, *next);
+		swap(current,next);
 		usleep(70000);
 
 	}
