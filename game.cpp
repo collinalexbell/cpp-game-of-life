@@ -13,6 +13,8 @@ class Life_Board{
 
 	public:
 		Life_Board(int h, int w){
+
+			srand(time(NULL));
 			//Inits board with random seed based off percentage
 
 			//Percentage of board filled with life
@@ -112,6 +114,17 @@ class Life_Board{
 
 		}
 
+		void run(){
+			while(true){
+				system("clear");
+				print();
+				tick();
+				usleep(70000);
+
+			}
+
+		}
+
 
 	private:
 		board_vector* current;
@@ -123,13 +136,6 @@ class Life_Board{
 
 
 int main(){
-	srand(time(NULL));
 	Life_Board board = Life_Board(50,50);
-	while(true){
-		system("clear");
-		board.print();
-		board.tick();
-		usleep(70000);
-
-	}
+	board.run();
 }
