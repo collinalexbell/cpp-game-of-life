@@ -8,7 +8,6 @@ using namespace std;
 
 typedef vector<vector<char> > board_vector;
 
-
 class Life_Board{
 
 	public:
