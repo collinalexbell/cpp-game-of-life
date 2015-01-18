@@ -1,5 +1,5 @@
-Simple Game of life implementaion in C
+#Simple Game of life implementaion in C
 
-Only works on unix 
+`my@life$ make
 
 change "clear" to "clr" if on windows
