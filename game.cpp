@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include "gui.h"
 
 using namespace std;
 
@@ -52,6 +53,17 @@ class Life_Board{
 				}
 				cout << endl;
 			}
+		}
+
+		void gui_print(GUI_Board gui){
+			gui.clear();
+			int i, j;
+			for (i = 1; i < (*current)[0].size()-1; i++){
+				for (j = 1; j < current->size()-1; j++){
+					if((*current)[j][i] == '@') gui.draw_circle(j-1,i-1);
+				}
+			}
+			gui.update();
 		}
 
 		void tick(){
@@ -124,6 +136,17 @@ class Life_Board{
 
 		}
 
+		void gui_run(){
+			GUI_Board gui = GUI_Board();
+			while(gui.running){
+				gui_print(gui);
+				tick();
+				gui.input_manager();
+				usleep(70000);
+			}
+			gui.destroy();
+		}
+
 
 	private:
 		board_vector* current;
@@ -135,6 +158,6 @@ class Life_Board{
 
 
 int main(int argc, char* args[]){
-	Life_Board board = Life_Board(50,50);
-	board.run();
+	Life_Board board = Life_Board(42,32);
+	board.gui_run();
 }

@@ -1,16 +1,14 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <zlib.h>
+#include "gui.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-void draw_grid(SDL_Renderer*);
-void draw_circle(int, int, SDL_Renderer*, SDL_Texture*);
-	
-int main( int argc, char* args[] ){
-	SDL_Window* window = NULL;
 
+
+GUI_Board::GUI_Board(){
 	int imgFlags = IMG_INIT_PNG;
 	if( !( IMG_Init( imgFlags ) & imgFlags ) )
 	{
@@ -27,8 +25,8 @@ int main( int argc, char* args[] ){
 		if ( window == NULL){
 			printf( "window could not be created! SDL_Error: %s\n", SDL_GetError() );
 		} else {
-			
-			SDL_Renderer* renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
+
+			renderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
 			SDL_SetRenderDrawColor( renderer,0xFF , 0xFF, 0xFF, 0xFF );
 			SDL_RenderClear(renderer);
 
@@ -38,7 +36,7 @@ int main( int argc, char* args[] ){
 			}
 
 
-			SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, tmp);
+			texture = SDL_CreateTextureFromSurface(renderer, tmp);
 			if (!texture){
 				printf(SDL_GetError());
 			}
@@ -46,23 +44,28 @@ int main( int argc, char* args[] ){
 
 			SDL_SetRenderDrawColor( renderer,0, 0, 0, 0xFF );
 
-			
 
-			draw_circle(39,29,renderer, texture);
-			draw_circle(30,20,renderer, texture);
-			draw_circle(20,10,renderer, texture);
-
-
-			draw_grid(renderer);
-			SDL_RenderPresent( renderer );
-
-			SDL_Delay( 5000 );
 		}
 	}
-	SDL_DestroyWindow( window );
+
+	running = true;
+	
 }
 
-void draw_grid(SDL_Renderer* renderer){
+void GUI_Board::draw_circle(int x, int y){
+	SDL_SetRenderDrawColor( renderer,0, 0, 0, 0xFF );
+	const int NUM_X_LINES = 40;
+	const int NUM_Y_LINES = 30;
+	const int X_SPACING = SCREEN_WIDTH/NUM_X_LINES;
+	const int Y_SPACING = SCREEN_HEIGHT/NUM_Y_LINES;
+	const int off = 1;
+
+	SDL_Rect renderQuad = { (X_SPACING * x) + off, Y_SPACING * y + off, 15, 15 };
+	SDL_RenderCopy( renderer, texture, NULL, &renderQuad	);
+}
+
+
+void GUI_Board::draw_grid(){
 	SDL_SetRenderDrawColor( renderer,0, 0, 0, 0xFF );
 	const int NUM_X_LINES = 40;
 	const int NUM_Y_LINES = 30;
@@ -81,14 +84,29 @@ void draw_grid(SDL_Renderer* renderer){
 
 }
 
-void draw_circle(int x, int y, SDL_Renderer* renderer, SDL_Texture* texture){
-	const int NUM_X_LINES = 40;
-	const int NUM_Y_LINES = 30;
-	const int X_SPACING = SCREEN_WIDTH/NUM_X_LINES;
-	const int Y_SPACING = SCREEN_HEIGHT/NUM_Y_LINES;
-	const int off = 1;
+void GUI_Board::update(){
 
-	SDL_Rect renderQuad = { (X_SPACING * x) + off, Y_SPACING * y + off, 15, 15 };
-	SDL_RenderCopy( renderer, texture, NULL, &renderQuad	);
-
+	draw_grid();
+	SDL_RenderPresent( renderer );
 }
+
+void GUI_Board::clear(){
+	SDL_SetRenderDrawColor( renderer,0xFF , 0xFF, 0xFF, 0xFF );
+	SDL_RenderClear( renderer );
+}
+
+void GUI_Board::destroy(){
+	SDL_DestroyWindow( window );
+	SDL_Quit();
+}
+
+void GUI_Board::input_manager(){
+	while(SDL_PollEvent(&events)) {
+		if(events.type == SDL_QUIT)
+			running = false;
+	}
+}
+
+
+
+
