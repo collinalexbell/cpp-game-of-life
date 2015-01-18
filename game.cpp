@@ -135,7 +135,7 @@ class Life_Board{
 
 
 
-int main(){
+int main(int argc, char* args[]){
 	Life_Board board = Life_Board(50,50);
 	board.run();
 }
