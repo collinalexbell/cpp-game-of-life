@@ -3,8 +3,8 @@
 To build & run:
 ```
 my@life$ make
-my@life$ life_term
-my@life$ life_gui
+my@life$ ./bin/life_term
+my@life$ ./bin/life_gui
 
 ```
 change "clear" to "clr" if on windows
