@@ -54,6 +54,7 @@ GUI_Board::GUI_Board(){
 
 	running = true;
 	pause = false;
+	reinstanciate = false;
 	
 }
 
@@ -125,6 +126,7 @@ void GUI_Board::input_manager(){
 			}
 			if ( y > SCREEN_HEIGHT && x > 90 && x < 130 ){
 				printf("restart\n");
+				reinstanciate = true;
 			}
 		}
 	}

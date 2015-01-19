@@ -16,6 +16,7 @@ class Life_Board{
 		void tick();
 		void run();
 		void gui_run();
+		void reinstanciate();
 
 	private:
 		board_vector* current;

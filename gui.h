@@ -11,7 +11,7 @@ class GUI_Board{
 		SDL_Event events;
 
 	public:
-		bool running, pause;
+		bool running, pause, reinstanciate;
 		GUI_Board();
 		void draw_circle(int, int);
 		void draw_grid();

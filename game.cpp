@@ -13,18 +13,24 @@ Life_Board::Life_Board(int h, int w){
 	srand(time(NULL));
 	//Inits board with random seed based off percentage
 
-	//Percentage of board filled with life
-	int i, j, percentage;
-	bool cell_is_alive;
 
-	percentage = 15;
 
 	current	=  new board_vector(h, vector<char>(w, ' '));
 	next = new board_vector(h, vector<char>(w, ' '));
+	reinstanciate();
+	}
+
+void Life_Board::reinstanciate(){
+	int i, j, percentage;
+
+	//Percentage of board filled with life
+	percentage = 15;
+	bool cell_is_alive;
 	for(i = 1; i < current->size()-1; i++){
 		for(j = 1; j < (*current)[i].size()-1; j++){
 			cell_is_alive = (rand()%100 < percentage);
 			if(cell_is_alive) (*current)[i][j] = '@';
+			else (*current)[i][j] = ' ';
 		}
 	}
 
@@ -135,11 +141,18 @@ void Life_Board::run(){
 void Life_Board::gui_run(){
 	GUI_Board gui = GUI_Board();
 	while(gui.running){
+		if (gui.reinstanciate){
+			reinstanciate();
+			gui.reinstanciate=false;
+		}
 		gui_print(gui);
 		tick();
 		gui.input_manager();
 			while (gui.pause){
 				gui.input_manager();
+				if(!gui.running){
+					break;
+				}
 			}
 		usleep(70000);
 	}
