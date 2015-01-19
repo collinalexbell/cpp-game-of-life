@@ -138,6 +138,9 @@ void Life_Board::gui_run(){
 		gui_print(gui);
 		tick();
 		gui.input_manager();
+			while (gui.pause){
+				gui.input_manager();
+			}
 		usleep(70000);
 	}
 	gui.destroy();
