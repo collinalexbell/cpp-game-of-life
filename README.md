@@ -8,3 +8,4 @@ my@life$ ./bin/life_gui
 
 ```
 change "clear" to "clr" if on windows
+copyright 2015
