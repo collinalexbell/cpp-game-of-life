@@ -15,6 +15,7 @@ class Life_Board{
 		void gui_print(GUI_Board);
 		void tick();
 		void run();
+    void run(int secs);
 		void gui_run();
 		void reinstanciate();
 

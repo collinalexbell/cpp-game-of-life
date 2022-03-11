@@ -133,9 +133,21 @@ void Life_Board::run(){
 		print();
 		tick();
 		usleep(70000);
-
 	}
+}
 
+void Life_Board::run(int secs){
+  int micro_sec = 1000000;
+  int total_micro_sec = secs * micro_sec;
+  int tick_length = 70000;
+  int num_ticks = total_micro_sec / tick_length;
+  int tickCount = 0;
+	while(++tickCount < num_ticks){
+		system("clear");
+		print();
+		tick();
+		usleep(tick_length);
+	}
 }
 
 void Life_Board::gui_run(){
