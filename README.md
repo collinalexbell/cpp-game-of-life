@@ -1,4 +1,4 @@
-#Simple Game of life implementaion in C
+# Simple Game of life implementaion in C++
 
 To build & run:
 ```
